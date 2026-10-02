@@ -32,7 +32,7 @@ Status push(LStack* L,SElemType *e){
 }
 
 Status pop(LStack* L,SElemType *e){
-    if(L->count){return ERROR;}
+    if(!L->count){return ERROR;}
     *e=L->top->data;
     LStackPtr s=L->top;
     L->top=L->top->next;
