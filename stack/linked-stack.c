@@ -1,42 +1,43 @@
 #include <stdio.h>
-#include <stdlib.h>
-#define MAXN 10000
-#define SElemType int
-#define Status int
-#define ERROR 0
+#define MAXN 1000
 #define OK 1
-typedef struct Node{
-    SElemType data;
-    struct Node* next;
-}Node,*LStackPtr;
+#define ERROR 0
+typedef int Status;
+typedef int QElem;
+typedef struct {
+    QElem data[MAXN];
+    int head;
+    int last;
+}Qeue;
 
-typedef struct LStack{
-    int count;
-    LStackPtr top;
-}LStack;
- 
-Status push(LStack* L,SElemType *e);
-Status pop(LStack* L,SElemType *e);
-int main(void){
-    
-    return 0;
+int Length(Qeue Q);
+Status EQ(Qeue *Q,QElem *e);
+Status DQ(Qeue *Q,QElem *e);
+
+int Length(Qeue Q){
+    return (Q.last-Q.head+MAXN)%MAXN;
 }
 
-Status push(LStack* L,SElemType *e){
-    LStackPtr s=(LStackPtr)malloc(sizeof(Node));
-    s->data=*e;
-    s->next=L->top;
-    L->top=s;
-    L->count++;
+Status EQ(Qeue *Q,QElem *e){
+    if((Q->last+1)%MAXN==Q->head){
+        return ERROR;
+    }
+    Q->data[Q->last]=*e;
+    Q->last=(Q->last+1)%MAXN;
     return OK;
 }
 
-Status pop(LStack* L,SElemType *e){
-    if(!L->count){return ERROR;}
-    *e=L->top->data;
-    LStackPtr s=L->top;
-    L->top=L->top->next;
-    free(s);
-    L->count--;
+Status DQ(Qeue *Q,QElem *e){
+    if(Q->head==Q->last){
+        return ERROR;
+    }
+    *e=Q->data[Q->head];
+    Q->head=(Q->head+1)%MAXN;
     return OK;
 }
+
+
+
+
+
+
