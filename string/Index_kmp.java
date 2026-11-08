@@ -11,7 +11,12 @@ public class Index_kmp {
             if (j == -1 || S.charAt(i) == S.charAt(j)) {
                 i++;
                 j++;
-                next[i] = j;
+                if(S.charAt(i)!=S.charAt(j)){
+                    next[i]=j;
+                }
+                else{
+                    next[i]=next[j];
+                }
             } else {
                 j = next[j];
             }
